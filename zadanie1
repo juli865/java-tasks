@@ -1,0 +1,122 @@
+package zadanie1;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Scanner;
+import java.util.Set;
+
+public class Program1 {
+    public static void main(String[] args) {
+        String[] words = {"ТЕСТИРОВЩИК", "КОМПЬЮТЕР", "ПАРОЛЬ", "ПРОГРАММИСТ", "ИГРА"};
+        Random rand = new Random();
+        String word = words[rand.nextInt(words.length)];
+        Set<Character> guessedLetters = new HashSet<>();
+        int lives = 6;
+        Scanner scanner = new Scanner(System.in);
+
+        char[] displayWord = new char[word.length()];
+        Arrays.fill(displayWord, '_');
+
+        while (lives > 0 && new String(displayWord).contains("_")) {
+
+            drawHangedMan(lives);
+            System.out.println("Слово: " + String.valueOf(displayWord));
+            System.out.println("Осталось жизней: " + lives);
+            System.out.print("Введите букву: ");
+            String input = scanner.nextLine().toUpperCase();
+
+            if (input.length() != 1 || !Character.isLetter(input.charAt(0))) {
+                System.out.println("Пожалуйста, введите одну букву.");
+                continue;
+            }
+
+            char guess = input.charAt(0);
+            if (guessedLetters.contains(guess)) {
+                System.out.println("Эта буква уже была угадана.");
+                continue;
+            }
+            guessedLetters.add(guess);
+
+            if (word.indexOf(guess) >= 0) {
+                for (int i = 0; i < word.length(); i++) {
+                    if (word.charAt(i) == guess) {
+                        displayWord[i] = guess;
+                    }
+                }
+                System.out.println("Правильно!");
+            } else {
+                lives--;
+                System.out.println("Нет такой буквы.");
+            }
+        }
+
+
+        drawHangedMan(lives);
+
+        if (new String(displayWord).equals(word)) {
+            System.out.println("Поздравляем! Вы отгадали слово: " + word);
+        } else {
+            System.out.println("Игра окончена. Загаданное слово было: " + word);
+        }
+        scanner.close();
+    }
+
+
+    public static void drawHangedMan(int lives) {
+        switch (lives) {
+            case 6:
+                System.out.println();
+                System.out.println(" ");
+                System.out.println(" ");
+                System.out.println(" ");
+                System.out.println(" ");
+                break;
+            case 5:
+                System.out.println(" -----");
+                System.out.println("|     ");
+                System.out.println("|     ");
+                System.out.println("|     ");
+                System.out.println("|     ");
+                break;
+            case 4:
+                System.out.println(" -----");
+                System.out.println("|    |");
+                System.out.println("|    O");
+                System.out.println("|     ");
+                System.out.println("|     ");
+                break;
+            case 3:
+                System.out.println(" -----");
+                System.out.println("|   |");
+                System.out.println("|   O");
+                System.out.println("|  /|");
+                System.out.println("|    ");
+                break;
+            case 2:
+                System.out.println(" -----");
+                System.out.println("|    |");
+                System.out.println("|    O");
+                System.out.println("|   /|\\");
+                System.out.println("|     ");
+                break;
+            case 1:
+                System.out.println(" -----");
+                System.out.println("|    |");
+                System.out.println("|    O");
+                System.out.println("|   /|\\");
+                System.out.println("|   / ");
+                break;
+            case 0:
+                System.out.println(" -----");
+                System.out.println("|    |");
+                System.out.println("|    O");
+                System.out.println("|   /|\\");
+                System.out.println("|   / \\");
+                System.out.println("|     ");
+                System.out.println("Проигрыш");
+                break;
+        }
+        System.out.println();
+    }
+}
