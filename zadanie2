@@ -1,0 +1,65 @@
+package zadanie2;
+
+import java.util.Scanner;
+
+public class Program2 {
+    public static void main(String[] args) {
+
+        final double USD_TO_EUR = 0.85;
+        final double USD_TO_RUB = 82.61;
+        final double USD_TO_BYN = 3.02;
+        final double USD_TO_AED = 3.67;
+        final double USD_TO_KZT = 548.44;
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Введите сумму: ");
+        double amount = scanner.nextDouble();
+
+        System.out.println("Выберите валюту, из которой конвертировать:");
+        System.out.println("1 - USD");
+        System.out.println("2 - EUR");
+        System.out.println("3 - RUB");
+        System.out.println("4 - BYN");
+        System.out.println("5 - AED");
+        System.out.println("6 - KZT");
+        System.out.print("Ваш выбор: ");
+        int choice = scanner.nextInt();
+
+        double amountIn;
+        switch (choice) {
+            case 1:
+                amountIn = amount;
+                break;
+            case 2:
+                amountIn = amount / USD_TO_EUR;
+                break;
+            case 3:
+                amountIn = amount / USD_TO_RUB;
+                break;
+            case 4:
+                amountIn = amount / USD_TO_BYN;
+                break;
+            case 5:
+                amountIn = amount / USD_TO_AED;
+                break;
+            case 6:
+                amountIn = amount / USD_TO_KZT;
+                break;
+            default:
+                System.out.println("Некорректный выбор.");
+                scanner.close();
+                return;
+        }
+
+        System.out.println("Конвертация в другие валюты:");
+        System.out.printf("USD: %.2f\n", amountIn);
+        System.out.printf("EUR: %.2f\n", amountIn * USD_TO_EUR);
+        System.out.printf("RUB: %.2f\n", amountIn * USD_TO_RUB);
+        System.out.printf("UAH: %.2f\n", amountIn * USD_TO_BYN);
+        System.out.printf("CNY: %.2f\n", amountIn * USD_TO_AED);
+        System.out.printf("JPY: %.2f\n", amountIn * USD_TO_KZT);
+
+        scanner.close();
+    }
+}
